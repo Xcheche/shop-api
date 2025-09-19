@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Shopping Cart
+{% endblock %}
+
+{% block content %}
+  <h2>Shopping Cart</h2>
+  <table class="table"></table>
+    <tbody>
+      <!-- Cart Items -->
+      <tr>
+        <th>Items</th>
+        <td>
+          {% for item in items %}
+            <div>
+              {{ item.quantity }}x {{ item.name }}
+            </div>
+          {% endfor %}
+        </td>
+      </tr>
+      <!-- Subtotal Row -->
+      <tr>
+        <th>Subtotal</th>
+        <td>${{ subtotal|floatformat:2 }}</td>
+      </tr>
+      <!-- Shipping Row -->
+      <tr>
+        <th>Shipping</th>
+        <td>Free</td>
+      </tr>
+      <!-- Taxes Row -->
+      <tr>
+        <th>Taxes ({{ tax_rate }}%)</th>
+        <td>${{ tax_total|floatformat:2 }}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <!-- Total Row -->
+      <tr>
+        <th>Total</th>
+        <td>${{ total|floatformat:2 }}</td>
+      </tr>
+    </tfoot>
+  </table>
+{% endblock %}
