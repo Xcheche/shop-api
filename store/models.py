@@ -5,8 +5,9 @@ from django.db import models
 
 
 
-# Product model
+#=========== Product model=========================
 class Product(models.Model):
+    """Model representing a product in the store."""
     DISCOUNT_RATE = 0.10
 
     id = models.AutoField(primary_key=True)
@@ -17,6 +18,7 @@ class Product(models.Model):
     sale_end = models.DateTimeField(blank=True, null=True, default=None)
     photo = models.ImageField(blank=True, null=True, default=None, upload_to='products')
 
+    #----------- Product methods -------------------
     def is_on_sale(self):
         now = timezone.now()
         if self.sale_start:
@@ -36,13 +38,21 @@ class Product(models.Model):
 
     def __repr__(self):
         return '<Product object ({}) "{}">'.format(self.id, self.name)
+    
+    def __str__(self):
+        return self.name
 
+#=========== ShoppingCart and ShoppingCartItem models=========================
 class ShoppingCart(models.Model):
+    """Model representing a shopping cart."""
     TAX_RATE = 0.13
   
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
+
+
+    #----------- ShoppingCart methods -------------------
 
     def subtotal(self):
         amount = 0.0
@@ -63,10 +73,15 @@ class ShoppingCart(models.Model):
     def __str__(self):
         return  self.name
     
+#=========== ShoppingCartItem model=========================    
 class ShoppingCartItem(models.Model):
+    """Model representing an item in a shopping cart."""
     shopping_cart = models.ForeignKey(ShoppingCart, related_name='items', related_query_name='item', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='+', on_delete=models.CASCADE)
     quantity = models.IntegerField()
+
+
+    #----------- ShoppingCartItem methods -------------------
 
     def total(self):
         return round(self.quantity * self.product.current_price())
