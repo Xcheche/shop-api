@@ -8,7 +8,7 @@ from django.db import models
 #=========== Product model=========================
 class Product(models.Model):
     """Model representing a product in the store."""
-    DISCOUNT_RATE = 0.10
+    DISCOUNT_RATE = 0.10 # 10% discount But for simplicity, we are using a fixed discount rate not hardcoded
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
