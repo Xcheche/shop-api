@@ -8,37 +8,67 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=200)),
-                ('description', models.TextField()),
-                ('price', models.FloatField()),
-                ('sale_start', models.DateTimeField(blank=True, default=None, null=True)),
-                ('sale_end', models.DateTimeField(blank=True, default=None, null=True)),
-                ('photo', models.ImageField(blank=True, default=None, null=True, upload_to='products')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=200)),
+                ("description", models.TextField()),
+                ("price", models.FloatField()),
+                (
+                    "sale_start",
+                    models.DateTimeField(blank=True, default=None, null=True),
+                ),
+                ("sale_end", models.DateTimeField(blank=True, default=None, null=True)),
+                (
+                    "photo",
+                    models.ImageField(
+                        blank=True, default=None, null=True, upload_to="products"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ShoppingCart',
+            name="ShoppingCart",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=200)),
-                ('address', models.CharField(max_length=200)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=200)),
+                ("address", models.CharField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
-            name='ShoppingCartItem',
+            name="ShoppingCartItem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.IntegerField()),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='store.product')),
-                ('shopping_cart', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items', related_query_name='item', to='store.shoppingcart')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("quantity", models.IntegerField()),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to="store.product",
+                    ),
+                ),
+                (
+                    "shopping_cart",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="items",
+                        related_query_name="item",
+                        to="store.shoppingcart",
+                    ),
+                ),
             ],
         ),
     ]
